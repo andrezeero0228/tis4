@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import logo from './logo.jpg';
 import txt from './txt.png';
-import excel from './excel.jpg';
+import pdf from './pdf.jpg';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 import { Button, TextField } from '@material-ui/core';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
@@ -15,7 +21,7 @@ import Select from '@material-ui/core/Select';
 import { DrawerNavegacao } from './navegacao';
 import MenuItem from '@material-ui/core/MenuItem';
 
-export class TelaExportacoes extends Component {
+export class TelaRelatorios extends Component {
   state = {
     tipoArquivo: '',
     dataArquivo: ''
@@ -24,10 +30,9 @@ export class TelaExportacoes extends Component {
     this.setState({ [name]: event.target.value });
   };
 
-  handleExport = name => event => {
-    this.setState({ ['tipoArquivo']: name });
+  handleMonta = () => {
     if (this.state.dataArquivo == '') alert('Selecione o período');
-    else alert(this.state.tipoArquivo + ' ' + this.state.dataArquivo);
+    else alert('Montar relatório dos últimos ' + this.state.dataArquivo + ' dias');
   };
 
   render() {
@@ -36,7 +41,7 @@ export class TelaExportacoes extends Component {
         <DrawerNavegacao />
         <div className="App">
           <img src={logo} style={{ margin: '20px' }} />
-          <h3 style={{ margin: '20px' }}>Exportar dados do(s) último(s): </h3>
+          <h3 style={{ margin: '20px' }}>Montar relatórios do(s) último(s): </h3>
           <Select
             style={{ width: 300, margin: '20px' }}
             value={this.state.dataArquivo}
@@ -51,13 +56,18 @@ export class TelaExportacoes extends Component {
             <MenuItem value={90}>3 Meses</MenuItem>
             <MenuItem value={100}>Desde o início</MenuItem>
           </Select>
-          <h3 style={{ margin: '20px' }}>Exportar em: </h3>
-          <img src={txt} href onClick={this.handleExport('txt')} style={{ margin: '20px' }} />
-          <img src={excel} href onClick={this.handleExport('excel')} style={{ margin: '20px' }} />
+          <Button
+            variant="contained"
+            color="primary"
+            style={{ margin: '20px', width: 200, height: 50 }}
+            onClick={e => this.handleMonta()}
+          >
+            Montar
+          </Button>
         </div>
       </div>
     );
   }
 }
 
-export default TelaExportacoes;
+export default TelaRelatorios;

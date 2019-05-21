@@ -23,9 +23,13 @@ export class TelaLogin extends Component {
     this.setState(state => ({ showPassword: !state.showPassword }));
   };
 
-  render() {
+  fazLogin = () => {
     const history = createBrowserHistory();
-    const location = history.location;
+    if (this.state.login === 'andrea' && this.state.senha === 'andrea') history.replace('/home');
+    else alert('Usuário e/ou senha incorreto(s)!!');
+  };
+
+  render() {
     return (
       <div className="App">
         <h1 style={{ margin: '20px' }}>Bem Vindo(a)!</h1>
@@ -70,9 +74,7 @@ export class TelaLogin extends Component {
             color="primary"
             style={{ margin: '20px', width: 200, height: 50 }}
             //onClick={e => console.log(this.state)}
-            onClick={e => {
-              history.replace('/home');
-            }}
+            onClick={e => this.fazLogin()}
           >
             Entrar
           </Button>
