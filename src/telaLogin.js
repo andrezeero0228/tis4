@@ -26,7 +26,7 @@ export class TelaLogin extends Component {
   fazLogin = () => {
     const history = createBrowserHistory();
     if (this.state.login === 'andrea' && this.state.senha === 'andrea') history.replace('/home');
-    else alert('Usuário e/ou senha incorreto(s)!!');
+    else alert('Usuário e/ou senha incorreto(s)!!!');
   };
 
   render() {
