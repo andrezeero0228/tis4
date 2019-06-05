@@ -1,24 +1,10 @@
-import React, { Component } from 'react';
-import logo from './logo.jpg';
-import txt from './txt.png';
-import pdf from './pdf.jpg';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import { Button, TextField } from '@material-ui/core';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import IconButton from '@material-ui/core/IconButton';
-import { withRouter, Link } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
+import React, {Component} from 'react';
+import logo from './assets/logo.jpg';
+
+import {Button} from '@material-ui/core';
+
 import Select from '@material-ui/core/Select';
-import { DrawerNavegacao } from './navegacao';
+import {DrawerNavegacao} from './navegacao';
 import MenuItem from '@material-ui/core/MenuItem';
 
 export class TelaRelatorios extends Component {
@@ -31,7 +17,7 @@ export class TelaRelatorios extends Component {
   };
 
   handleMonta = () => {
-    if (this.state.dataArquivo == '') alert('Selecione o período');
+    if (this.state.dataArquivo === '') alert('Selecione o período');
     else alert('Montar relatório dos últimos ' + this.state.dataArquivo + ' dias');
   };
 
@@ -40,7 +26,7 @@ export class TelaRelatorios extends Component {
       <div>
         <DrawerNavegacao />
         <div className="App">
-          <img src={logo} style={{ margin: '20px' }} />
+          <img src={logo} style={{margin: '20px'}} alt={'teste'}/>
           <h3 style={{ margin: '20px' }}>Montar relatórios do(s) último(s): </h3>
           <Select
             style={{ width: 300, margin: '20px' }}

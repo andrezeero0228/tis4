@@ -1,48 +1,91 @@
-import React, { Component } from 'react';
-import logo from './logo.jpg';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import { Button, TextField } from '@material-ui/core';
+import React, {Component} from 'react';
+import logo from './assets/logo.jpg';
+
+import {Button, TextField} from '@material-ui/core';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
-import { withRouter, Link } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
+import FirebaseService from './firebaseService/firebaseServirce'
+import {createBrowserHistory} from "history";
 
-export class TelaLogin extends Component {
-  state = {
-    login: '',
+
+const fb = new FirebaseService();
+
+
+const estado_inicial = {
+    email: '',
     senha: '',
     showPassword: false
-  };
-  handleChange = name => event => {
-    this.setState({ [name]: event.target.value });
-  };
-  handleClickShowPassword = () => {
-    this.setState(state => ({ showPassword: !state.showPassword }));
+};
+
+
+export class TelaLoginForm extends Component {
+
+    constructor(props) {
+
+
+        super(props);
+        this.state = {...estado_inicial};
+
+
+    }
+
+    handleChange = email => event => {
+        this.setState({[email]: event.target.value});
+    };
+    handleClickShowPassword = () => {
+        this.setState(state => ({senha: !state.showPassword}));
   };
 
-  fazLogin = () => {
-    const history = createBrowserHistory();
-    if (this.state.login === 'andrea' && this.state.senha === 'andrea') history.replace('/home');
-    else alert('Usuário e/ou senha incorreto(s)!!!');
-  };
+
+    onSubmit = event => {
+        const {email, senha} = this.state;
+
+        console.log(email);
+        console.log(senha);
+
+
+        debugger;
+
+        fb.login_email(email, senha);
+
+
+        if (fb.getUser) {
+            const history = createBrowserHistory();
+            history.replace('/home');
+
+        }
+        console.log(fb.getUser());
+
+
+        event.preventDefault();
+    };
+
+
+
+
+
+
+
+
+
+
 
   render() {
     return (
       <div className="App">
         <h1 style={{ margin: '20px' }}>Bem Vindo(a)!</h1>
-        <img src={logo} style={{ margin: '20px' }} />
-        <form onSubmit="return false;">
+          <img src={logo} style={{margin: '20px'}} alt="ModerAlocol"/>
+          <form onSubmit={this.onSubmit}>
           <div>
             <TextField
-              id="standard-name"
-              label="Login"
-              margin="normal"
-              value={this.state.login}
-              onChange={this.handleChange('login')}
-              style={{ width: 300, margin: '20px' }}
+                id="email"
+                label="E-mail"
+                margin="normal"
+                value={this.state.email}
+                onChange={this.handleChange('email')}
+                style={{ width: 300, margin: '20px' }}
             />
           </div>
           <div>
@@ -70,12 +113,11 @@ export class TelaLogin extends Component {
             />
           </div>
           <Button
-            variant="contained"
-            color="primary"
-            style={{ margin: '20px', width: 200, height: 50 }}
-            //onClick={e => console.log(this.state)}
-            onClick={e => this.fazLogin()}
-          >
+              variant="contained"
+              color="primary"
+              style={{ margin: '20px', width: 200, height: 50 }}
+              onClick={e => console.log(this.state)}
+              type="submit">
             Entrar
           </Button>
         </form>
@@ -84,4 +126,6 @@ export class TelaLogin extends Component {
   }
 }
 
-export default TelaLogin;
+
+export default TelaLoginForm;
+

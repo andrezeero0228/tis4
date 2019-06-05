@@ -1,18 +1,10 @@
-import React, { Component } from 'react';
-import logo from './logo.jpg';
-import txt from './txt.png';
-import pdf from './pdf.jpg';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import { Button, TextField } from '@material-ui/core';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import IconButton from '@material-ui/core/IconButton';
-import { withRouter, Link } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
+import React, {Component} from 'react';
+import logo from './assets/logo.jpg';
+
+import pdf from './assets/pdf.jpg';
+
 import Select from '@material-ui/core/Select';
-import { DrawerNavegacao } from './navegacao';
+import {DrawerNavegacao} from './navegacao';
 import MenuItem from '@material-ui/core/MenuItem';
 
 export class TelaExportacoesRelatorios extends Component {
@@ -25,9 +17,9 @@ export class TelaExportacoesRelatorios extends Component {
   };
 
   handleExport = name => event => {
-    this.setState({ ['tipoArquivo']: name });
-    if (this.state.dataArquivo == '') alert('Selecione o período');
-    else alert(this.state.tipoArquivo + ' ' + this.state.dataArquivo);
+      //this.setState({ 'tipoArquivo']: name });
+      //  if (this.state.dataArquivo == '') alert('Selecione o período');
+      //  else alert(this.state.tipoArquivo + ' ' + this.state.dataArquivo);
   };
 
   render() {
@@ -35,7 +27,7 @@ export class TelaExportacoesRelatorios extends Component {
       <div>
         <DrawerNavegacao />
         <div className="App">
-          <img src={logo} style={{ margin: '20px' }} />
+            <img src={logo} style={{margin: '20px'}} alt={'teste'}/>
           <h3 style={{ margin: '20px' }}>Exportar relatórios do(s) último(s): </h3>
           <Select
             style={{ width: 300, margin: '20px' }}
@@ -52,7 +44,7 @@ export class TelaExportacoesRelatorios extends Component {
             <MenuItem value={0}>Desde o início</MenuItem>
           </Select>
           <h3 style={{ margin: '20px' }}>Exportar em: </h3>
-          <img src={pdf} href onClick={this.handleExport('pdf')} style={{ margin: '20px' }} />
+            <img src={pdf} href onClick={this.handleExport('pdf')} style={{margin: '20px'}} alt={'teste'}/>
         </div>
       </div>
     );
