@@ -8,9 +8,26 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import FirebaseService from './firebaseService/firebaseServirce'
 import {createBrowserHistory} from "history";
+import {FireSQL} from "firesql";
 
 
 const fb = new FirebaseService();
+const dbRef = fb.db;
+const fireSQL = new FireSQL(dbRef);
+
+
+fireSQL.query('SELECT * FROM usuario WHERE pergunta_1="sim"').then(documents => {
+    documents.forEach(doc => {
+        console.log(`${doc.pergunta_1}`);
+        console.log('/');
+        console.log(documents);
+    });
+});
+
+
+
+
+
 
 
 const estado_inicial = {
@@ -51,9 +68,9 @@ export class TelaLoginForm extends Component {
         fb.login_email(email, senha);
 
 
-        if (fb.getUser) {
+        if (!fb.getUser) {
             const history = createBrowserHistory();
-            history.replace('/home');
+            history.replace('/home', fb);
 
         }
         console.log(fb.getUser());
@@ -63,16 +80,7 @@ export class TelaLoginForm extends Component {
     };
 
 
-
-
-
-
-
-
-
-
-
-  render() {
+    render() {
     return (
       <div className="App">
         <h1 style={{ margin: '20px' }}>Bem Vindo(a)!</h1>

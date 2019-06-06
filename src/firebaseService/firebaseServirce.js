@@ -1,4 +1,5 @@
 import app from 'firebase/app';
+import 'firebase/firestore';
 
 
 const config = {
@@ -17,6 +18,7 @@ export default class FirebaseService {
     constructor() {
 
         app.initializeApp(config);
+        this.db = app.firestore();
 
     }
 
@@ -33,8 +35,8 @@ export default class FirebaseService {
             })
             .catch(function (error) {
                 // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
+
+                alert(error.message);
             });
 
 

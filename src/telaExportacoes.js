@@ -23,6 +23,7 @@ export class TelaExportacoes extends Component {
       // else alert(this.state.tipoArquivo + ' ' + this.state.dataArquivo);
   };
 
+
   render() {
     return (
       <div>
