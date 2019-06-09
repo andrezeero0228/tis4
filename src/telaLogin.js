@@ -13,49 +13,67 @@ import {FireSQL} from "firesql";
 
 const fb = new FirebaseService();
 const dbRef = fb.db;
+let total = 0;
+const pergunta_sim = [0, 0, 0, 0, 0, 0];
+const pergunta_nao = [0, 0, 0, 0, 0, 0];
+
+const estados = ["AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RO", "RS", "RR", "SC", "SE", "SP", "TO"];
+const contagemPorEstados = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 const fireSQL = new FireSQL(dbRef);
 
-var total=0;
-var pergunta_sim=[0,0,0,0,0,0];
-var pergunta_nao=[0,0,0,0,0,0];
+    fireSQL.query('SELECT * FROM usuario ').then(documents => {documents.forEach(doc => {
+            total++;
 
+        });
 
-
-fireSQL.query('SELECT * FROM usuario ').then(documents => {
-    documents.forEach(doc => {
-        total++;
-
+        teste(total)
 
     });
-    console.log("total de  pergunta  "+ total)})
-
-var cont=0;
 
 
-    for (let i = 0; i <6 ; i++) {
+for (let i = 0; i <6 ; i++) {
+        let respostaSim=0;
+    let respostaNao=0;
+    fireSQL.query('SELECT * FROM usuario WHERE pergunta_'+(i+1)+'="sim"').then(documents => {
+        documents.forEach(doc => {
+            respostaSim++;
 
-        fireSQL.query('SELECT * FROM usuario WHERE pergunta_'+(i+1)+'="sim"').then(documents => {
-            documents.forEach(doc => {
-              cont++;
+        });
 
-            });
-            pergunta_nao[i]=total-pergunta_sim[i];
-            console.log("total "+total);
-            console.log("teste "+pergunta_sim[i]);
-            console.log("teste "+pergunta_nao[i]);
-            console.log("sim "+pergunta_sim);
-            console.log("nao "+pergunta_nao);
-        })
+        respostaNao=total-respostaSim;
+        respostas(respostaSim,respostaNao,i);
 
-        console.log("sim "+pergunta_sim);
-        console.log("nao "+pergunta_nao);
+        respostaSim=0;
+        respostaNao=0;
 
-
-    }
+    })
 
 
 
 
+}
+
+
+
+for (let i = 0; i <27 ; i++) {
+    let aux=0;
+    fireSQL.query('SELECT * FROM usuario WHERE estado ="'+estados[i]+'"').then(documents => {
+        documents.forEach(doc => {
+            aux++;
+
+        });
+
+        contaEstados(aux,i);
+
+        aux=0;
+
+
+    })
+
+
+
+
+}
 
 
 
@@ -65,6 +83,29 @@ var cont=0;
 
 
 
+
+
+function teste(cont) {
+        console.log(cont);
+
+}
+
+function respostas(sim,nao,i) {
+    pergunta_sim[i]=sim;
+    pergunta_nao[i]=nao;
+
+    console.log(pergunta_sim);
+
+
+
+
+}
+
+function contaEstados(contagem, i) {
+    contagemPorEstados[i]=contagem;
+    console.log(estados[i]+" Ccntagem: "+contagemPorEstados[i]);
+
+}
 
 export class TelaLogin extends Component {
     state = {
@@ -73,8 +114,14 @@ export class TelaLogin extends Component {
         showPassword: false
     };
 
-    pergunta_sim=[0,0,0,0,0,0];
-    pergunta_nao=[0,0,0,0,0,0];
+
+
+
+
+
+
+
+
 
 
 
@@ -111,63 +158,61 @@ export class TelaLogin extends Component {
         const history = createBrowserHistory();
         if (this.state.login === 'andrea' && this.state.senha === 'andrea') history.replace('/home');
         else alert('Usuário e/ou senha incorreto(s)!!!');
-    }
+    };
 
 
 
 
     render() {
-        return (
-            <div className="App" >
-                <h1 style={{ margin: '20px' }}>Bem Vindo(a)!</h1>
-                <img src={logo} style={{ margin: '20px' }} />
-                <form onSubmit="return false;">
-                    <div>
-                        <TextField
-                            id="standard-name"
-                            label="Login"
-                            margin="normal"
-                            value={this.state.login}
-                            onChange={this.handleChange('login')}
-                            style={{ width: 300, margin: '20px' }}
-                        />
-                    </div>
-                    <div>
-                        <TextField
-                            id="standard-password-input"
-                            label="Senha"
-                            type={this.state.showPassword ? 'text' : 'password'}
-                            autoComplete="current-password"
-                            margin="normal"
-                            value={this.state.senha}
-                            onChange={this.handleChange('senha')}
-                            style={{ width: 300, margin: '20px' }}
-                            InputProps={{
-                                endAdornment: (
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                            aria-label="Toggle password visibility"
-                                            onClick={this.handleClickShowPassword}
-                                        >
-                                            {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
-                                        </IconButton>
-                                    </InputAdornment>
-                                )
-                            }}
-                        />
-                    </div>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        style={{ margin: '20px', width: 200, height: 50 }}
-                        //onClick={e => console.log(this.state)}
-                        onClick={e => this.fazLogin()}
-                    >
-                        Entrar
-                    </Button>
-                </form>
-            </div>
-        );
+        return <div className="App">
+            <h1 style={{margin: '20px'}}>Bem Vindo(a)!</h1>
+            <img src={logo} style={{margin: '20px'}} alt={"logo"}/>
+            <form onSubmit="return false;">
+                <div>
+                    <TextField
+                        id="standard-name"
+                        label="Login"
+                        margin="normal"
+                        value={this.state.login}
+                        onChange={this.handleChange('login')}
+                        style={{width: 300, margin: '20px'}}
+                    />
+                </div>
+                <div>
+                    <TextField
+                        id="standard-password-input"
+                        label="Senha"
+                        type={this.state.showPassword ? 'text' : 'password'}
+                        autoComplete="current-password"
+                        margin="normal"
+                        value={this.state.senha}
+                        onChange={this.handleChange('senha')}
+                        style={{width: 300, margin: '20px'}}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="Toggle password visibility"
+                                        onClick={this.handleClickShowPassword}
+                                    >
+                                        {this.state.showPassword ? <VisibilityOff/> : <Visibility/>}
+                                    </IconButton>
+                                </InputAdornment>
+                            )
+                        }}
+                    />
+                </div>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    style={{margin: '20px', width: 200, height: 50}}
+                    //onClick={e => console.log(this.state)}
+                    onClick={e => this.fazLogin()}
+                >
+                    Entrar
+                </Button>
+            </form>
+        </div>;
     }
 }
 
