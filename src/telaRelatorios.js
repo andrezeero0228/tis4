@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import logo from './assets/logo.jpg';
 
-import {Button} from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
 import Select from '@material-ui/core/Select';
-import {DrawerNavegacao} from './navegacao';
+import { DrawerNavegacao } from './navegacao';
 import MenuItem from '@material-ui/core/MenuItem';
 
 export class TelaRelatorios extends Component {
@@ -24,9 +24,8 @@ export class TelaRelatorios extends Component {
   render() {
     return (
       <div>
-        <DrawerNavegacao />
         <div className="App">
-          <img src={logo} style={{margin: '20px'}} alt={'teste'}/>
+          <img src={logo} style={{ margin: '20px' }} alt={'teste'} />
           <h3 style={{ margin: '20px' }}>Montar relatórios do(s) último(s): </h3>
           <Select
             style={{ width: 300, margin: '20px' }}

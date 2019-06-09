@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import logo from './assets/logo.jpg';
 
 import pdf from './assets/pdf.jpg';
 
 import Select from '@material-ui/core/Select';
-import {DrawerNavegacao} from './navegacao';
+import { DrawerNavegacao } from './navegacao';
 import MenuItem from '@material-ui/core/MenuItem';
 
 export class TelaExportacoesRelatorios extends Component {
@@ -17,17 +17,16 @@ export class TelaExportacoesRelatorios extends Component {
   };
 
   handleExport = name => event => {
-      //this.setState({ 'tipoArquivo']: name });
-      //  if (this.state.dataArquivo == '') alert('Selecione o período');
-      //  else alert(this.state.tipoArquivo + ' ' + this.state.dataArquivo);
+    //this.setState({ 'tipoArquivo']: name });
+    //  if (this.state.dataArquivo == '') alert('Selecione o período');
+    //  else alert(this.state.tipoArquivo + ' ' + this.state.dataArquivo);
   };
 
   render() {
     return (
       <div>
-        <DrawerNavegacao />
         <div className="App">
-            <img src={logo} style={{margin: '20px'}} alt={'teste'}/>
+          <img src={logo} style={{ margin: '20px' }} alt={'teste'} />
           <h3 style={{ margin: '20px' }}>Exportar relatórios do(s) último(s): </h3>
           <Select
             style={{ width: 300, margin: '20px' }}
@@ -44,7 +43,13 @@ export class TelaExportacoesRelatorios extends Component {
             <MenuItem value={0}>Desde o início</MenuItem>
           </Select>
           <h3 style={{ margin: '20px' }}>Exportar em: </h3>
-            <img src={pdf} href onClick={this.handleExport('pdf')} style={{margin: '20px'}} alt={'teste'}/>
+          <img
+            src={pdf}
+            href
+            onClick={this.handleExport('pdf')}
+            style={{ margin: '20px' }}
+            alt={'teste'}
+          />
         </div>
       </div>
     );
