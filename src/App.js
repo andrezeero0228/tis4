@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import {TelaLoginForm} from './telaLogin.js';
+import {TelaLogin} from './telaLogin.js';
 import {TelaExportacoes} from './telaExportacoes.js';
 import {TelaExportacoesRelatorios} from './telaExportacoesRelatorios.js';
 import {TelaRelatorios} from './telaRelatorios.js';
@@ -11,7 +11,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Switch>
-            <Route path="/" exact component={TelaLoginForm}/>
+            <Route path="/" exact component={TelaLogin}/>
           <Route id="home" exact path="/home" render={() => <TelaExportacoes />} />
           <Route id="exporta" exact path="/exporta" render={() => <TelaExportacoesRelatorios />} />
           <Route id="relatorio" exact path="/relatorio" render={() => <TelaRelatorios />} />
