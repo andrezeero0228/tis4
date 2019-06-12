@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './assets/logo.jpg';
 
 import { Button } from '@material-ui/core';
-
+import Icon from '@material-ui/core/Icon';
 import Select from '@material-ui/core/Select';
 import { DrawerNavegacao } from './navegacao';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -47,7 +47,7 @@ export class TelaRelatorios extends Component {
             style={{ margin: '20px', width: 200, height: 50 }}
             onClick={e => this.handleMonta()}
           >
-            Montar
+            Exportar em pdf
           </Button>
         </div>
       </div>

@@ -5,6 +5,13 @@ import excel from './assets/excel.jpg';
 
 import Select from '@material-ui/core/Select';
 import { DrawerNavegacao } from './navegacao';
+import { makeStyles } from '@material-ui/core/styles';
+import DeleteIcon from '@material-ui/icons/Delete';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
+import Icon from '@material-ui/core/Icon';
+import SaveIcon from '@material-ui/icons/Save';
+import { Button, TextField } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
 
 export class TelaExportacoes extends Component {
@@ -42,6 +49,7 @@ export class TelaExportacoes extends Component {
             <MenuItem value={90}>3 Meses</MenuItem>
             <MenuItem value={100}>Desde o início</MenuItem>
           </Select>
+
           <h3 style={{ margin: '20px' }}>Exportar em: </h3>
           <img
             src={txt}
