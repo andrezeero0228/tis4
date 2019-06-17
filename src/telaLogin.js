@@ -112,6 +112,7 @@ export class TelaLogin extends Component {
   };
 
   render() {
+    console.log(this.props.teste);
     return (
       <div className="App">
         <h1 style={{ margin: '20px' }}>Bem Vindo(a)!</h1>

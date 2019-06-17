@@ -20,7 +20,8 @@ class App extends Component {
       pergunta_nao: null,
       base: null,
       contador: 0,
-      teste: null
+      teste: null,
+      firebase: null
     };
   }
 
@@ -116,6 +117,9 @@ class App extends Component {
     const fb = new FirebaseService();
     const dbRef = fb.db;
     const fireSQL = new FireSQL(dbRef);
+    this.setState({
+      firebase: fb
+    });
     await this.geraTotal(fireSQL);
     //await this.geraTotalPorEstado(fireSQL);
     await this.geraTotalSimNao(fireSQL);
@@ -125,7 +129,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route path="/" exact component={TelaLogin} />
+          <Route path="/" exact render={() => <TelaLogin teste={this.state.firebase} />} />
           <Route id="home" exact path="/home" render={() => <Home />} />
           <Route
             id="relatorio"
