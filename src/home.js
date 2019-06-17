@@ -14,23 +14,26 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
 import Icon from '@material-ui/core/Icon';
 import { createBrowserHistory } from 'history';
+import { TelaMateus } from './telaMateus.js';
 import SaveIcon from '@material-ui/icons/Save';
 import { Button, TextField } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
+import DataGrid, { Column, Export, GroupPanel, Selection } from 'devextreme-react/data-grid';
+import { Chart, ArgumentAxis, ValueAxis, LineSeries } from '@devexpress/dx-react-chart-material-ui';
 
 export class Home extends Component {
-  state = {
-    tipoArquivo: '',
-    dataArquivo: ''
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      pergunta_sim: null,
+      pergunta_nao: null,
+      base: null,
+      contador: 0,
+      teste: null
+    };
+  }
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
-  };
-
-  handleExport = name => event => {
-    //  this.setState({ ['tipoArquivo']: name });
-    // if (this.state.dataArquivo == '') alert('Selecione o período');
-    // else alert(this.state.tipoArquivo + ' ' + this.state.dataArquivo);
   };
 
   fazLogin = () => {
@@ -44,6 +47,7 @@ export class Home extends Component {
   };
 
   render() {
+    console.log(this.state);
     return (
       <div>
         <div className="App">

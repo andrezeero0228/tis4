@@ -5,15 +5,10 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
-import FirebaseService from './firebaseService/firebaseServirce';
 import { createBrowserHistory } from 'history';
-import { FireSQL } from 'firesql';
 import { Home } from './home.js';
 import { Delete, Edit, Link } from '@material-ui/icons';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-
-const fb = new FirebaseService();
-const dbRef = fb.db;
 let total = 0;
 const pergunta_sim = [];
 const pergunta_nao = [];
@@ -84,44 +79,6 @@ const contagemPorEstados = [
   0,
   0
 ];
-const fireSQL = new FireSQL(dbRef);
-
-fireSQL.query('SELECT * FROM usuario ').then(documents => {
-  documents.forEach(doc => {
-    total++;
-  });
-
-  teste(total);
-});
-
-for (let i = 0; i < 27; i++) {
-  let aux = 0;
-  fireSQL.query('SELECT * FROM usuario WHERE estado ="' + estados[i] + '"').then(documents => {
-    documents.forEach(doc => {
-      aux++;
-    });
-
-    contaEstados(aux, i);
-
-    aux = 0;
-  });
-}
-
-function teste(cont) {
-  console.log(cont);
-  for (let i = 0; i < 6; i++) {
-    let respostaSim = 0;
-    let respostaNao = 0;
-    fireSQL.query('SELECT * FROM usuario WHERE pergunta_' + (i + 1) + '="sim"').then(documents => {
-      documents.forEach(doc => {
-        respostaSim++;
-      });
-
-      respostaNao = total - respostaSim;
-      respostas(respostaSim, respostaNao, i);
-    });
-  }
-}
 
 function respostas(sim, nao, i) {
   pergunta_sim[i] = sim;
