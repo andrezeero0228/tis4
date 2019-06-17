@@ -145,7 +145,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 
 export class TelaExportacoes extends Component {
   state = {
-    tipoArquivo: '',
+    dados: [],
     dataArquivo: ''
   };
   handleChange = name => event => {
@@ -173,8 +173,19 @@ export class TelaExportacoes extends Component {
   };
 
   render() {
-    console.log(this.props.pergunta_sim);
-    console.log(this.props.pergunta_nao);
+    let um = [];
+    um = this.props.pergunta_sim;
+    let dados2 = [];
+
+    if (um !== null) {
+      // for (let i = 0; i < um.length; i++) dados2.push(um[i]);
+      this.setState({ dados: um });
+    }
+    // if (dados2.length === 6) {
+    //   this.setState({ dados: dados2 });
+    // }
+    // console.log(this.state.dados);
+
     return (
       <div>
         <div className="App">
