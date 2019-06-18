@@ -82,14 +82,6 @@ const renderActiveShape = props => {
   );
 };
 
-const data2 = [
-  { name: 'Sul', value: 7 },
-  { name: 'Sudeste', value: 10 },
-  { name: 'Norte', value: 1 },
-  { name: 'Nordeste', value: 3 },
-  { name: 'Centro-Oeste', value: 2 }
-];
-
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#A23555'];
 const RADIAN = Math.PI / 180;
 
@@ -207,10 +199,61 @@ export class TelaExportacoes extends Component {
         );
       }
     }
+
     // if (dados2.length === 6) {
     //   this.setState({ dados: dados2 });
     // }
     // console.log(this.state.dados);
+  };
+
+  teste2 = () => {
+    let tres = [];
+    tres = this.props.estados;
+    // let dados2 = [];
+
+    if (tres !== null) {
+      if (tres.AC > 0) {
+        console.log(tres);
+        const data2 = [
+          { name: 'Sul', value: tres.SC + tres.PR + tres.RS },
+          { name: 'Sudeste', value: tres.MG + tres.SP + tres.RJ + tres.ES },
+          {
+            name: 'Norte',
+            value: tres.AM + tres.AC + tres.RR + tres.AP + tres.PA + tres.TO + tres.RO
+          },
+          {
+            name: 'Nordeste',
+            value:
+              tres.AL +
+              tres.BA +
+              tres.CE +
+              tres.MA +
+              tres.PE +
+              tres.PB +
+              tres.PI +
+              tres.RN +
+              tres.SE
+          },
+          { name: 'Centro-Oeste', value: tres.GO + tres.MT + tres.MS + tres.DF }
+        ];
+        return (
+          <PieChart width={600} height={600} style={{ left: 750, bottom: 500 }}>
+            <Pie
+              activeIndex={this.state.activeIndex}
+              activeShape={renderActiveShape}
+              data={data2}
+              cx={300}
+              cy={300}
+              innerRadius={90}
+              outerRadius={120}
+              fill="#8884d8"
+              dataKey="value"
+              onMouseEnter={this.onPieEnter}
+            />
+          </PieChart>
+        );
+      }
+    }
   };
 
   render() {
@@ -227,7 +270,6 @@ export class TelaExportacoes extends Component {
     // if (dados2.length === 6) {
     //   this.setState({ dados: dados2 });
     // }
-    // console.log(this.state.dados);
 
     return (
       <div>
@@ -240,20 +282,7 @@ export class TelaExportacoes extends Component {
           <h3 style={{ left: '900px', top: '0px', position: 'absolute' }}>
             Quantidade de respostas por região
           </h3>
-          <PieChart width={600} height={600} style={{ left: 750, bottom: 500 }}>
-            <Pie
-              activeIndex={this.state.activeIndex}
-              activeShape={renderActiveShape}
-              data={data2}
-              cx={300}
-              cy={300}
-              innerRadius={90}
-              outerRadius={120}
-              fill="#8884d8"
-              dataKey="value"
-              onMouseEnter={this.onPieEnter}
-            />
-          </PieChart>
+          {this.teste2()}
           <Button
             variant="outlined"
             style={{ right: '500px', top: '550px', position: 'absolute' }}

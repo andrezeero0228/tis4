@@ -21,7 +21,44 @@ class App extends Component {
       base: null,
       contador: 0,
       teste: null,
-      firebase: null
+      firebase: null,
+      contagemPorEstados: [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
     };
   }
 
@@ -40,50 +77,79 @@ class App extends Component {
     });
   }
 
-  // geraTotalPorEstado(fireSQL) {
-  //   let auxArray = {
-  //     AC: 0,
-  //     AL: 0,
-  //     AM: 0,
-  //     AP: 0,
-  //     BA: 0,
-  //     CE: 0,
-  //     DF: 0,
-  //     ES: 0,
-  //     GO: 0,
-  //     MA: 0,
-  //     MT: 0,
-  //     MS: 0,
-  //     MG: 0,
-  //     PA: 0,
-  //     PB: 0,
-  //     PR: 0,
-  //     PE: 0,
-  //     PI: 0,
-  //     RJ: 0,
-  //     RN: 0,
-  //     RO: 0,
-  //     RS: 0,
-  //     RR: 0,
-  //     SC: 0,
-  //     SE: 0,
-  //     SP: 0,
-  //     TO: 0
-  //   };
-  //   for (let i = 0; i < 27; i++) {
-  //     let aux = 0;
-  //     fireSQL.query('SELECT * FROM usuario WHERE estado ="' + estados[i] + '"').then(documents => {
-  //       documents.forEach(doc => {
-  //         aux++;
-  //       });
-  //       auxArray[estados[i]] = aux;
+  geraTotalPorEstado(fireSQL) {
+    const estados = [
+      'AC',
+      'AL',
+      'AM',
+      'AP',
+      'BA',
+      'CE',
+      'DF',
+      'ES',
+      'GO',
+      'MA',
+      'MT',
+      'MS',
+      'MG',
+      'PA',
+      'PB',
+      'PR',
+      'PE',
+      'PI',
+      'RJ',
+      'RN',
+      'RO',
+      'RS',
+      'RR',
+      'SC',
+      'SE',
+      'SP',
+      'TO'
+    ];
+    let auxArray = {
+      AC: 0,
+      AL: 0,
+      AM: 0,
+      AP: 0,
+      BA: 0,
+      CE: 0,
+      DF: 0,
+      ES: 0,
+      GO: 0,
+      MA: 0,
+      MT: 0,
+      MS: 0,
+      MG: 0,
+      PA: 0,
+      PB: 0,
+      PR: 0,
+      PE: 0,
+      PI: 0,
+      RJ: 0,
+      RN: 0,
+      RO: 0,
+      RS: 0,
+      RR: 0,
+      SC: 0,
+      SE: 0,
+      SP: 0,
+      TO: 0
+    };
+    for (let i = 0; i < 27; i++) {
+      let aux = 0;
+      fireSQL.query('SELECT * FROM usuario WHERE estado ="' + estados[i] + '"').then(documents => {
+        documents.forEach(doc => {
+          aux++;
+        });
+        auxArray[estados[i]] = aux;
 
-  //       if (i === 26) {
-  //         this.setState({ contagemPorEstados: auxArray });
-  //       }
-  //     });
-  //   }
-  // }
+        if (i === 26) {
+          this.setState({ contagemPorEstados: auxArray });
+        }
+      });
+    }
+  }
 
   geraTotalSimNao(fireSQL) {
     let respostasSim = [];
@@ -121,7 +187,7 @@ class App extends Component {
       firebase: fb
     });
     await this.geraTotal(fireSQL);
-    //await this.geraTotalPorEstado(fireSQL);
+    await this.geraTotalPorEstado(fireSQL);
     await this.geraTotalSimNao(fireSQL);
   }
 
@@ -139,6 +205,7 @@ class App extends Component {
               <TelaExportacoes
                 pergunta_sim={this.state.pergunta_sim}
                 pergunta_nao={this.state.pergunta_nao}
+                estados={this.state.contagemPorEstados}
               />
             )}
           />
