@@ -82,44 +82,6 @@ const renderActiveShape = props => {
   );
 };
 
-const data = [
-  {
-    name: 'PRG_1',
-    Sim: 20,
-    Nao: 3,
-    amt: 2400
-  },
-  {
-    name: 'PRG_2',
-    Sim: 18,
-    Nao: 5,
-    amt: 2400
-  },
-  {
-    name: 'PRG_4',
-    Sim: 0,
-    Nao: 23,
-    amt: 2400
-  },
-  {
-    name: 'PRG_5',
-    Sim: 12,
-    Nao: 11,
-    amt: 2400
-  },
-  {
-    name: 'PRG_6',
-    Sim: 10,
-    Nao: 13,
-    amt: 2400
-  },
-  {
-    name: 'PRG_7',
-    Sim: 7,
-    Nao: 16,
-    amt: 2400
-  }
-];
 const data2 = [
   { name: 'Sul', value: 7 },
   { name: 'Sudeste', value: 10 },
@@ -172,15 +134,96 @@ export class TelaExportacoes extends Component {
     history.replace('/home');
   };
 
-  render() {
+  teste = () => {
     let um = [];
     um = this.props.pergunta_sim;
-    let dados2 = [];
+    let dois = [];
+    dois = this.props.pergunta_nao;
+    // let dados2 = [];
 
-    if (um !== null) {
-      // for (let i = 0; i < um.length; i++) dados2.push(um[i]);
-      this.setState({ dados: um });
+    if (um !== null && dois !== null) {
+      if (um.length === 6 && dois.length === 6) {
+        console.log(um);
+        const data = [
+          {
+            name: 'PRG_1',
+            Sim: um[0],
+            Nao: dois[0],
+            amt: 2400
+          },
+          {
+            name: 'PRG_2',
+            Sim: um[1],
+            Nao: dois[1],
+            amt: 2400
+          },
+          {
+            name: 'PRG_4',
+            Sim: um[2],
+            Nao: dois[2],
+            amt: 2400
+          },
+          {
+            name: 'PRG_5',
+            Sim: um[3],
+            Nao: dois[3],
+            amt: 2400
+          },
+          {
+            name: 'PRG_6',
+            Sim: um[4],
+            Nao: dois[4],
+            amt: 2400
+          },
+          {
+            name: 'PRG_7',
+            Sim: um[5],
+            Nao: dois[5],
+            amt: 2400
+          }
+        ];
+        // for (let i = 0; i < um.length; i++) dados2.push(um[i]);
+        return (
+          <BarChart
+            style={{ left: '400px' }}
+            width={600}
+            height={500}
+            data={data}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="Sim" fill="#8884d8" />
+            <Bar dataKey="Nao" fill="#82ca9d" />
+          </BarChart>
+        );
+      }
     }
+    // if (dados2.length === 6) {
+    //   this.setState({ dados: dados2 });
+    // }
+    // console.log(this.state.dados);
+  };
+
+  render() {
+    // let um = [];
+    // um = this.props.pergunta_sim;
+    // let dados2 = [];
+
+    // if (um !== null) {
+    //   if (um.length === 6) {
+    //     // for (let i = 0; i < um.length; i++) dados2.push(um[i]);
+    //     this.setState({ dados: um });
+    //   }
+    // }
     // if (dados2.length === 6) {
     //   this.setState({ dados: dados2 });
     // }
@@ -191,26 +234,8 @@ export class TelaExportacoes extends Component {
         <div className="App">
           <div style={{ left: '-400px', position: 'relative' }}>
             <h3>Quantidade de Sim e Não por pergunta</h3>
-            <BarChart
-              style={{ left: '400px' }}
-              width={600}
-              height={500}
-              data={data}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="Sim" fill="#8884d8" />
-              <Bar dataKey="Nao" fill="#82ca9d" />
-            </BarChart>
+
+            {this.teste()}
           </div>
           <h3 style={{ left: '900px', top: '0px', position: 'absolute' }}>
             Quantidade de respostas por região
