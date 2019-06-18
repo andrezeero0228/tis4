@@ -104,11 +104,15 @@ export class TelaLogin extends Component {
     this.setState(state => ({ showPassword: !state.showPassword }));
   };
 
-  fazLogin = () => {
+  fazLogin = async () => {
+    console.log(this.props.teste.getUser());
     const history = createBrowserHistory();
-    console.log(pergunta_sim);
-    if (this.state.login === 'andrea' && this.state.senha === 'andrea') history.replace('/home');
+    await this.props.teste.login_email(this.state.login, this.state.senha);
+    let user = await this.props.teste.getUser();
+
+    if (user != null) history.replace('/home');
     else alert('Usuário e/ou senha incorreto(s)!!!');
+    window.location.reload();
   };
 
   render() {
@@ -158,7 +162,7 @@ export class TelaLogin extends Component {
             style={{ margin: '20px', width: 200, height: 50 }}
             //onClick={e => console.log(this.state)}
             onClick={e => this.fazLogin()}
-            href="/home"
+            //href="/home"
           >
             Entrar
           </Button>
