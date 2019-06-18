@@ -42,9 +42,9 @@ export default class FirebaseService {
 
     }
 
-    getUser() {
-        return app.auth().currentUser;
-    };
+     async getUser() {
+         return await app.auth().currentUser;
+     };
 
 
 }
