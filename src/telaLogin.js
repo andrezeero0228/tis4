@@ -105,14 +105,18 @@ export class TelaLogin extends Component {
   };
 
   fazLogin = async () => {
-    console.log(this.props.teste.getUser());
-    const history = createBrowserHistory();
-    await this.props.teste.login_email(this.state.login, this.state.senha);
-    let user = await this.props.teste.getUser();
 
-    if (user != null) history.replace('/home');
-    else alert('Usuário e/ou senha incorreto(s)!!!');
-    window.location.reload();
+      const history = createBrowserHistory();
+      this.props.teste.login_email(this.state.login, this.state.senha);
+      const user =  this.props.teste.getUser();
+
+      if (user != null) {
+        history.replace('/home');
+        window.location.reload();
+      }
+      else alert('Usuário e/ou senha incorreto(s)!!!');
+
+
   };
 
   render() {
