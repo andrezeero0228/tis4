@@ -12,7 +12,7 @@
     "babel-preset-react-native": "^4.0.1",
     "devextreme": "19.1-stable",
     "devextreme-react": "19.1-stable",
-    "firebase": "^6.1.0",
+    "firebase": "^10.9.0",
     "firesql": "^2.0.2",
     "git": "^0.1.5",
     "history": "^4.9.0",
